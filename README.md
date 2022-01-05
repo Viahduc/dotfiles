@@ -1,2 +1,2 @@
 # dotfiles
-currently inculdes xmonad and xmobar
+currently inculdes xmonad, xmobar, alacritty and awesome wm
