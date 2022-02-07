@@ -1,17 +1,10 @@
 Config { overrideRedirect = False
-       , font     = "xft:Ubuntu Mono:size=12:bold:antialias=true"
-       , bgColor  = "#282a36"
-       , fgColor  = "#6272a4"
-       , position = TopW L 90
-       , commands = [ Run Weather "EGPF"
-                        [ "--template", "<weather> <tempC>°C"
-                        , "-L", "0"
-                        , "-H", "25"
-                        , "--low"   , "#66ff99"
-                        , "--normal", "#ff8c69"
-                        , "--high"  , "#ea3c53
-                        ] 36000
-                    , Run Cpu
+       , font     	 = "xft:Ubuntu Mono:size=12:bold:antialias=true"
+       , additionalFonts = ["xft:FontAwesome-12"]
+       , bgColor  	 = "#282a36"
+       , fgColor  	 = "#6272a4"
+       , position 	 = Top
+       , commands 	 = [ Run Cpu
                         [ "-L", "3"
                         , "-H", "50"
                         , "--high"  , "#ea3c53"
@@ -24,13 +17,17 @@ Config { overrideRedirect = False
                         , "--"
                         , "--on", ""
                         ]
+		    , Run Kbd [ ("ca" 	     , "<fc=#ea3c53>CA</fc>")
+                             , ("us"         , "<fc=#6495ed>US</fc>")
+                              ]
                     , Run Memory ["--template", "Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Date "%a %Y-%m-%d <fc=#8be9fd>%H:%M</fc>" "date" 10
+                    , Run Date "%a %Y-%m-%d %H:%M" "date" 10
                     , Run XMonadLog
                     ]
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = "%XMonadLog% }{ %alsa:default:Master% | %cpu% | %memory% | %EGPF% | %date% "
+       , template = " Viahduc | %XMonadLog% }{ %cpu% | %memory% | %date% | %kbd% "  
        }
+
 
