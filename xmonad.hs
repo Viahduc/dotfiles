@@ -15,6 +15,9 @@ import XMonad.Hooks.ManageHelpers	--Fenêtres qui flottent
 import XMonad.Layout.Renamed		--permet de rename les layout
 import XMonad.Hooks.Script		--autostart script
 import XMonad.Util.SpawnOnce
+import XMonad.Hooks.WindowSwallowing	--swallowing de fenetre
+import XMonad.Util.ClickableWorkspaces  --pour pouvoir clicker
+import XMonad.Layout.NoBorders          --pour le true fullscreen
 
 --Définir des valeurs
 
@@ -22,28 +25,33 @@ myTerminal           = "alacritty"
 myBorderWidth        = 2
 myWorkspaces         = ["input","file","web","music","game","text","mail","vbox","nan"]
 myNormalBorderColor  = "#a8a8a8"
-myFocusedBorderColor = "#6272a4"
+myFocusedBorderColor = "#2a52be"
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "Termite") (return True)
 
 --Programme qui "float"
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "Gimp" --> 		    doFloat
     , className =? "minecraft-launcher" --> doFloat
+    , className =? "gnome-calculator"   --> doFloat
     , isDialog		  --> 		    doFloat
     ]
 
 --Autostart
 myStartupHook = do
-	spawnOnce "xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-0 --off --output DP-1 --off"
-	spawnOnce "feh --bg-fill --nofehbg ~/Pictures/wallpapers/free-as-in-freedom.png"
-	spawnOnce "sh /home/viahduc/.config/xmonad/trayer.sh"
+        spawnOnce "xrandr --output DVI-D-0  --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-0 --off --output DP-1 --off"
+        spawnOnce "feh --bg-fill --nofehbg ~/Pictures/wallpapers/free-as-in-freedom.png &"
+        spawnOnce "trayer --edge top --align right --SetDockType True --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x282a36 --height 21 --monitor 1 &"
+        spawnOnce "xmobar -x 0 ~/.xmobarrc && xmobar -x 1 /home/viahduc/.config/xmonad/.xmobarrc2 &"
+        spawnOnce "flameshot &"
+        spawnOnce "clementine &"
 --Fonction Main
 
 main :: IO ()
 main = xmonad 
      . ewmhFullscreen 
      . ewmh 
-     . withEasySB (statusBarProp "xmobar -x 0 ~/.xmobarrc && xmobar -x 1 ~/xmobarrc" (pure myXmobarPP)) defToggleStrutsKey
+     . withEasySB (statusBarProp "xmobar -x 0 ~/.xmobarrc && xmobar -x 1 /home/viahduc/.config/xmonad/.xmobarrc2" (pure myXmobarPP)) defToggleStrutsKey
      $ myConfig
 
 myConfig = def
@@ -56,19 +64,22 @@ myConfig = def
     , borderWidth = myBorderWidth
     , manageHook  = myManageHook --pour que des fenêtres se mettent en flottant par d�faut
     , startupHook = myStartupHook
+    , handleEventHook = myHandleEventHook
     }
    `additionalKeysP`
-    [ ("M-r",     spawn "dmenu_run && sh ~/.config/xmonad/trayer.sh"       ) --mon lanceur d'applications
-    , ("M-S-b",   spawn "brave-nightly"         ) --mon navigateur internet
+    [ ("M-r",     spawn "dmenu_run -l 18 -g 3 -i -fn 'xft:Ubuntu Mono:size:12:antialias:true' && sh ~/.config/xmonad/trayer.sh"       ) --mon lanceur d'applications
+    , ("M-S-b",   spawn "firefox"         ) --mon navigateur internet
+    , ("M-p",     spawn "dmenu_run -l 18 -g 3 -i -fn 'xft:Ubuntu Mono:size:12:antialias:true'" )
     , ("M-i",     spawn "setxkbmap us"    ) --clavier américain
     , ("M-o",     spawn "setxkbmap ca"    ) --clavier canadien
     , ("M-u",     sendMessage ToggleOff   ) --éteindre le zoom
     , ("M-S-u",   sendMessage ToggleOn    ) --démarrer le zoom
+    , ("M-q",     spawn "xmonad --recompile" )
     ]
 
 --Layout
 
-myLayout = tiled ||| Mirror tiled ||| threeCol ||| Full
+myLayout = tiled ||| Mirror tiled ||| threeCol ||| noBorders Full
     where
       threeCol     = renamed [Replace "ThreeCol"  ]$ magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio --Défini le "layout threeCol"
       tiled        = renamed [Replace "Tiled"     ]$ magnifiercz' 1.5 $ Tall nmaster delta ratio
@@ -81,7 +92,7 @@ myXmobarPP :: PP
 myXmobarPP = def
     { ppSep             = magenta " • "
     , ppTitleSanitize   = xmobarStrip
-    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#6272a4" 2
+    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#2a52be" 2
     , ppHidden          = white . wrap " " ""
     , ppHiddenNoWindows = lowWhite . wrap " " ""
     , ppUrgent          = red . wrap (yellow "!") (yellow "!")
@@ -100,7 +111,7 @@ myXmobarPP = def
     
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor "#f49ac2" ""
-    blue     = xmobarColor "#6272a4" ""
+    blue     = xmobarColor "#2a52be" ""
     white    = xmobarColor "#ebebeb" ""
     yellow   = xmobarColor "#ffc978" ""
     red      = xmobarColor "#ea3c53" ""
