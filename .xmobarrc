@@ -1,33 +1,33 @@
 Config { overrideRedirect = False
        , font     	 = "xft:Ubuntu Mono:size=12:bold:antialias=true"
        , additionalFonts = ["xft:FontAwesome-12"]
-       , bgColor  	 = "#282a36"
-       , fgColor  	 = "#6272a4"
-       , position 	 = Top
+       , bgColor  	 = "#D3D3D3"
+       , fgColor  	 = "#B22222"
+       , position 	 = TopW L 85
        , commands 	 = [ Run Cpu
-                        [ "-L", "3"
-                        , "-H", "50"
-                        , "--high"  , "#ea3c53"
-                        , "--normal", "#ff8c69"
-                        , "--low"   , "#66ff99"
-                        ] 10
-                    , Run Alsa "default" "Master"
-                        [ "--template", "<volumestatus>"
-                        , "--suffix"  , "True"
-                        , "--"
-                        , "--on", ""
-                        ]
-		    , Run Kbd [ ("ca" 	     , "<fc=#ea3c53>CA</fc>")
-                             , ("us"         , "<fc=#6495ed>US</fc>")
-                              ]
-                    , Run Memory ["--template", "Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Date "%a %Y-%m-%d %H:%M" "date" 10
-                    , Run XMonadLog
-                    ]
+	                        [ "-L", "3"
+        	                , "-H", "50"
+                	        , "--high"  , "#ea3c53"
+                     		, "--normal", "#ff8c69"
+                        	, "--low"   , "#66ff99"
+                        	] 10
+		    	   , Run Kbd 
+			        [ ("ca" 	, "<fc=#ea3c53>CA</fc>")
+                                , ("us"         , "<fc=#6495ed>US</fc>")
+                                ]
+                    	   , Run Memory 
+			        ["--template", "Mem: <usedratio>%"
+				, "--high"   , "#ea3c53"
+				, "--normal" , "#ff8c69"
+				, "--low"    , "#66ff99"
+				] 10
+                    	   , Run Date "%a %Y-%m-%d %H:%M" "date" 10
+                    	   , Run XMonadLog
+                    	   ]
+
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = " Viahduc | %XMonadLog% }{ %cpu% | %memory% | %date% | %kbd% "  
+       , template = " <icon=/home/viahduc/.config/xmonad/fedora.xbm/> |%XMonadLog% }{ %cpu% | %memory% | %date% | %kbd% | "  
        }
 
 
