@@ -1,6 +1,6 @@
 Config { overrideRedirect = False
        , font     	 = "xft:Ubuntu Mono:size=12:bold:antialias=true"
-       , additionalFonts = ["xft:FontAwesome-12"]
+       , additionalFonts = ["xft:FontAwesome 6 Free Solid:pixelsize=12"]
        , bgColor  	 = "#D3D3D3"
        , fgColor  	 = "#B22222"
        , position 	 = TopW L 85
@@ -23,11 +23,30 @@ Config { overrideRedirect = False
 				] 10
                     	   , Run Date "%a %Y-%m-%d %H:%M" "date" 10
                     	   , Run XMonadLog
-                    	   ]
+			   , Run WeatherX "CYQB"
+			      [ ("clear", "<fn=1></fn>")
+			      , ("sunny", "<fn=1></fn>")
+    			      , ("mostly clear", "<fn=1></fn>")
+           		      , ("mostly sunny", "<fn=1></fn>")
+           		      , ("partly sunny", "<fn=1></fn>")
+           		      , ("fair", "6")
+           		      , ("cloudy","<fn=1></fn>")
+           		      , ("overcast","<fn=1></fn>")
+           		      , ("partly cloudy", "<fn=1></fn>")
+           		      , ("mostly cloudy", "<fn=1></fn>")
+           		      , ("considerable cloudiness", "<fn=1></fn>")]
+			      [ "-t", "<fn=2><skyConditionS></fn> <tempC>°C | <fn=1></fn> <rh>%"
+			      , "-L", "0", "-H", "25"
+			      , "--normal", "#ff8c69"
+			      , "--high"  , "#ea3c53"
+ 			      , "--low"   , "#66ff99"
+                    	      ] 36000
+			]
 
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = " <icon=/home/viahduc/.config/xmonad/fedora.xbm/> |%XMonadLog% }{ %cpu% | %memory% | %date% | %kbd% | "  
+       , template = " <icon=/home/viahduc/.config/xmonad/fedora.xbm/> |%XMonadLog% }{ <fn=1></fn> %cpu% | <fn=1></fn> %memory% | <fn=1></fn> %date% | <fn=1></fn> %kbd% | %CYQB% | "  
+
        }
 
 

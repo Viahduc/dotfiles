@@ -157,27 +157,27 @@ colors:
   name: Viahduc LB
   author: Viahduc
   primary:
-    background: "#282a36"
-    foreground: "#ebebeb"
+    background: "#D3D3D3"
+    foreground: "#000000"
   cursor:
-    text: "#001100"
-    cursor: "#00bb00"
+    text: "#000000"
+    cursor: "#ebebeb"
   normal:
-    black: "#282a36"
-    red: "#ea3c53"
-    green: "#6272a4"
-    yellow: "#fea51a"
-    blue: "#adff2f"
-    magenta: "#f49ac2"
-    cyan: "#c9ffe5"
+    black: "#000000"
+    red: "#990c41"
+    green: "#319b54"
+    yellow: "#DAA520"
+    blue: "#0f52ba"
+    magenta: "#b300b3"
+    cyan: "#007fff"
     white: "#ebebeb"
   bright:
     black: "#adadad"
-    red: "#ea3c53"
-    green: "#6272a4"
+    red: "#B22222"
+    green: "#50c878"
     yellow: "#fea51a"
-    blue: "#adff2f"
-    magenta: "#f49ac2"
-    cyan: "#c9ffe5"
+    blue: "#2875ee"
+    magenta: "#ff00ff"
+    cyan: "#4da5ff"
     white: "#ebebeb"
 theme: Viahduc LB

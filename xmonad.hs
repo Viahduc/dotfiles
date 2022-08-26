@@ -26,8 +26,8 @@ myTerminal           = "alacritty"
 myBorderWidth        = 2
 myWorkspaces         = ["input","file","web","music","game","text","mail","vbox","nan"]
 myNormalBorderColor  = "#808080"
-myFocusedBorderColor = "#B22222"
-myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "Termite") (return True)
+myFocusedBorderColor = "#6495ed"
+myHandleEventHook = swallowEventHook (className =? "st" <||> className =? "Termite") (return True)
 
 --Programme qui "float"
 myManageHook :: ManageHook
@@ -40,7 +40,7 @@ myManageHook = composeAll
 
 --Autostart
 myStartupHook = do
-	spawnOnce "xrandr --output DVI-D-0 --mode 1920x1080 --pos 3840x0 --rotate normal --rate 59 --output HDMI-0 --mode 1920x1080 --pos 0x1 --rotate normal --rate 59 --output DP-0 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --rate 59"
+	spawnOnce "xrandr --output DVI-D-0 --mode 1920x1080 --pos 3840x0 --rotate normal --rate 60 --output HDMI-0 --mode 1920x1080 --pos 0x1 --rotate normal --rate 60 --output DP-0 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --rate 144.001"
         spawnOnce "picom &"
 	spawnOnce "conky &" 
 	spawnOnce "conky -c /home/viahduc/.config/conky/Display2.conf"
@@ -127,4 +127,4 @@ myXmobarPP = def
     white    = xmobarColor "#CD5C5C" ""
     yellow   = xmobarColor "#ffc978" ""
     red      = xmobarColor "#ea3c53" ""
-    lowWhite = xmobarColor "#000000" ""
+    lowWhite = xmobarColor "#fea51a" ""
