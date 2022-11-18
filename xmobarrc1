@@ -1,0 +1,65 @@
+Config { overrideRedirect = False
+       , font     	 = "xft:Ubuntu Mono Condensed Bold 16px"
+       , additionalFonts = [ "xft:FontAwesome 6 Free Solid 12px"
+                           , "xft:FontAwesome 6 Brands 12px"
+			   ]
+       , bgColor  	 = "#D3D3D3"
+       , fgColor  	 = "#B22222"
+       , position 	 = Static { xpos = 1920, ypos = 0, width = 1728, height = 21 }
+       , commands 	 = [ Run Cpu
+	                        [ "-L", "3"
+        	                , "-H", "50"
+                	        , "--high"  , "#B22222"
+                     		, "--normal", "#FEA51A"
+                        	, "--low"   , "#319B54"
+                        	] 10
+		    	   , Run Kbd 
+			        [ ("ca" 	, "<fc=#ea3c53>CA</fc>")
+                                , ("us"         , "<fc=#6495ed>US</fc>")
+                                ]
+                    	   , Run Memory 
+			        ["--template", "Mem: <usedratio>%"
+				, "--high"   , "#B22222"
+				, "--normal" , "#FEA51A"
+				, "--low"    , "#319B54"
+				] 10
+                    	   , Run Date "%a %Y-%m-%d <fc=#6485ED>|</fc> <fn=1></fn> %H:%M" "date" 10
+                    	   , Run XPropertyLog "_XMONAD_LOG_1"
+			   , Run WeatherX "CYQB"
+			      [ ("clear", "<fn=1></fn>")
+			      , ("sunny", "<fn=1></fn>")
+    			      , ("mostly clear", "<fn=1></fn>")
+           		      , ("mostly sunny", "<fn=1></fn>")
+           		      , ("partly sunny", "<fn=1></fn>")
+           		      , ("fair", "6")
+           		      , ("cloudy","<fn=1></fn>")
+           		      , ("overcast","<fn=1></fn>")
+           		      , ("partly cloudy", "<fn=1></fn>")
+           		      , ("mostly cloudy", "<fn=1></fn>")
+           		      , ("considerable cloudiness", "<fn=1></fn>")
+			      , ("obscured", "<fn=1></fn>")]
+			      [ "-t", "<fn=2><skyConditionS></fn> <tempC>°C <fc=#6495ED>|</fc> <fn=1></fn> <rh>%"
+			      , "-L", "0", "-H", "20"
+			      , "--normal", "#FEA51A"
+			      , "--high"  , "#319B54"
+ 			      , "--low"   , "#6495ED"
+                    	      ] 36000
+			    , Run Com ".local/bin/dnfupdate" [] "dnfupdate" 36000
+			]
+
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = " <action=`cat /home/viahduc/.config/jgmenu/menu.txt | jgmenu --simple`><icon=/home/viahduc/.config/xmonad/alenvers.xbm/></action> <fc=#6495ED>|</fc>\
+              \ <action=`alacritty`><fn=1></fn></action> <action=`nautilus`><fn=1></fn></action> <action=`emacs`><fn=1></fn></action> <action=`brave-browser`><fn=1></fn></action> <action=`flatpak run com.discordapp.Discord`><fn=1></fn></action>\
+              \ <fc=#6495ED>|</fc> %_XMONAD_LOG_1% }{\
+              \ <action=`alacritty -e htop`><fn=1></fn></action> %cpu% <fc=#6495ED>|</fc>\
+              \ <action=`alacritty -e htop`><fn=1></fn></action> %memory% <fc=#6495ED>|</fc>\
+              \ <action=`alacritty -e /home/viahduc/scripts/update.sh`><fn=1></fn></action> %dnfupdate% <fc=#6495ED>|</fc>\
+              \ <fn=1></fn> %date% <fc=#6495ED>|</fc>\
+              \ <action=`alacritty -e /home/viahduc/scripts/wttr.sh`>%CYQB%</action> <fc=#6495ED>|</fc>\
+              \ <action=`~/.local/bin/keylang/keylang4.sh`><fn=1></fn></action> %kbd% <fc=#6495ED>|</fc>\
+              \ <action=`xdotool key super+shift+n`><fn=1></fn></action> <action=`xdotool key super+shift+c`><fn=1></fn></action> <fc=#6495ED>|</fc> "
+
+       }
+
+
